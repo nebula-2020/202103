@@ -20,9 +20,16 @@
 """
 from django.contrib import admin
 from django.urls import path
-from .view import demo
+from django.urls.conf import re_path
+from Demo.view.demo import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', demo.hello),
+    path('', index),
+    path('signUp', update_user),
+    path('test', test),
+    path('signIn', sign_in),
+    path('getAll', get_users),
+    path('delete', delete_user),
 ]
+re_path('', index)
