@@ -10,6 +10,12 @@ def exec(clazz: Model, sql: str):
         ret.append(ele)
     return ret
 
+def get(clazz: Model, **kwargs):
+    try:
+        ret = clazz.objects.get(**kwargs)
+    except:
+        ret=None
+    return ret
 
 def find(clazz: Model, **kwargs):
     res = clazz.objects.filter(**kwargs)

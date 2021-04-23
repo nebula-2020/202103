@@ -18,16 +18,15 @@
     1. 导入include()函数：从django.url导入include、path
     2. 将URL添加到urlpatterns：path('blog/', include('blog.urls'))
 """
+from Demo.view import *
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import re_path
-from Demo.view.demo import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('signUp', update_user),
-    path('test', test),
+    path('signUp', sign_up),
     path('signIn', sign_in),
     path('getAll', get_users),
     path('delete', delete_user),
