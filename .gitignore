@@ -132,5 +132,6 @@ dmypy.json
 .vscode/
 
 # customize
+templates/
 *.svg
 *.ico
