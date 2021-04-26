@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import collections
 import inspect
-import numpy
 from functools import wraps
 
 
@@ -17,6 +16,7 @@ def type_checking(func):
     signature = inspect.signature(func)
     params = signature.parameters  # 参数有序字典
     keys = tuple(params.keys())
+    print(keys)
 
     @wraps(func)
     def wrap(*args, **kwargs):
@@ -39,5 +39,5 @@ def type_checking(func):
                                  got=type(e.v).__name__)
                 raise TypeError(err)
         print(check_list)
-        func(*args, **kwargs)
+        return func(*args, **kwargs)
     return wrap

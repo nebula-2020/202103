@@ -3,6 +3,16 @@
 from django.http.response import HttpResponse
 from Demo.util.const import *
 import json
+import collections
+import inspect
+from functools import wraps
+
+
+def get_postbody(request):
+    req = None
+    if(request.method == 'POST'):
+        req = json.loads(request.body)
+    return req
 
 
 def response_json(succeed: bool, values):

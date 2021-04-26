@@ -135,3 +135,5 @@ dmypy.json
 templates/
 *.svg
 *.ico
+templates/index.html
+*.bat

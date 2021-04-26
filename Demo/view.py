@@ -1,7 +1,11 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
-from Demo.util.web import response_json
-from Demo.service.userService import add_user
+'''
+视图。
+'''
+from Demo.util.common import *
+from Demo.util.web import *
+import Demo.service.user_service as us
 from Demo.entity import User
 import Demo.util.repository as repo
 from django.http import HttpResponse
@@ -20,24 +24,35 @@ def test(request):
     return HttpResponse('data')
 
 
+@req_type('POST')
 def sign_in(request):
-    req_id = request.GET.get('id')
-    req_password = request.GET.get('password')
-    conn = get_redis_connection('default')
-    return HttpResponse('hello_ world')
+    req = get_postbody(request)
+    id = int(req['id'])
+    phone = req['phone']
+    pwd = req['password']
+    if phone is not None and phone != '':
+        res = us.login(phone=phone, password=pwd)
+    elif id is not None and id > 0:
+        res = us.login(id=id, password=pwd)
+    else:
+        res = None
+    # conn = get_redis_connection('default')
+    su = res > 0
+    ret = HttpResponse(response_json(succeed=su, values=res if su else 0))
+    return ret
 
 
+@req_type('POST')
 def sign_up(request):
-    ret = None
-    if(request.method == 'POST'):
-        req = json.loads(request.body)
-        req_pwd = req['password']
-        req_ph = req['phone']
-        req_n = req['name']
-        ret = add_user(phone=req_ph, password=req_pwd, name=req_n)
+    req = get_postbody(request)
+    req_pwd = req['password']
+    req_ph = req['phone']
+    req_n = req['name']
+    ret = us.add_user(phone=req_ph, password=req_pwd, name=req_n)
     su = ret is not None
     if su:
         ret = {'id': ret.id}
+        us.login(id=ret, password=req_pwd)
     ret = HttpResponse(response_json(succeed=su, values=ret))
     print(ret)
     return ret
