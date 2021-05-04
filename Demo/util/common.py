@@ -3,6 +3,7 @@
 import collections
 import inspect
 from functools import wraps
+import traceback
 
 
 def all_not_None(*args) -> bool:
@@ -16,7 +17,6 @@ def type_checking(func):
     signature = inspect.signature(func)
     params = signature.parameters  # 参数有序字典
     keys = tuple(params.keys())
-    print(keys)
 
     @wraps(func)
     def wrap(*args, **kwargs):
@@ -38,6 +38,24 @@ def type_checking(func):
                 err = msg.format(exp=e.a.__name__, arg=e.k,
                                  got=type(e.v).__name__)
                 raise TypeError(err)
-        print(check_list)
         return func(*args, **kwargs)
     return wrap
+
+def base62(val:int)->str:
+    try:
+        if type(val )is not int:
+            v=int(val)
+        else:
+            v=val
+        num_str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        if val == 0:
+            return '0'
+        base36 = []
+        n=val
+        while n != 0:
+            n, r = divmod(n, 62) 
+            base36.append(num_str[r])
+
+        return ''.join(reversed(base36))
+    except:
+        traceback.print_exc()
