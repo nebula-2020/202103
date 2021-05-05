@@ -42,9 +42,9 @@ DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details`  (
   `id` bigint UNSIGNED NOT NULL COMMENT '用户ID',
   `name` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '用户昵称',
-  `ps` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '用户个性签名',
+  `ps` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户个性签名',
   `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `icon` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '用户头像路径',
+  `icon` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户头像路径',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
@@ -118,5 +118,8 @@ INSERT INTO `role` (`id`, `name`, `permissions`) VALUES (20, '人工审核员', 
 INSERT INTO `role` (`id`, `name`, `permissions`) VALUES (30, '数据库维护员', b'011100000000000001'); -- 增删改数据表：数据库维护员
 INSERT INTO `role` (`id`, `name`, `permissions`) VALUES (1, '注册用户', b'1'); -- 无特权：注册用户
 
+INSERT INTO `user` (`phone`, `password`) VALUES (0000,'nebula-2020');
+INSERT INTO `user_details` (`id`, `name`) VALUES (1,'nebula-2020');
+INSERT INTO `role_user` (`user_id`, `role_id`) VALUES (1,10);
 
 SET FOREIGN_KEY_CHECKS = 1;
