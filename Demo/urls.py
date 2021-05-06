@@ -30,5 +30,6 @@ urlpatterns = [
     path('signIn', sign_in),
     path('getAll', get_users),
     path('delete', delete_user),
+    path('me', user_center),
 ]
 re_path('', index)

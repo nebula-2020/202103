@@ -128,16 +128,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'templates', 'static'),
 ]
 
-#
+# Cache
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "CONNECTION_POOL_KWARGS": {"max_connections": 100}  # 线程池
-            # "PASSWORD": "123",
+            # "PASSWORD": "mysecret"
         }
     }
 }
