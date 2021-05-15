@@ -31,5 +31,6 @@ urlpatterns = [
     path('getAll', get_users),
     path('delete', delete_user),
     path('me', user_center),
+    path('gIcon', get_icon)
 ]
 re_path('', index)

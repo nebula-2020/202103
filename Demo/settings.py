@@ -12,6 +12,7 @@
 """
 
 import os
+import Demo.util.const as const
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -140,3 +141,14 @@ CACHES = {
         }
     }
 }
+SESSION_ENGINE = 'redis_sessions.session'
+SESSION_REDIS = {
+    'host': '127.0.0.1',
+    'port': 6379,
+    'db': 0,
+    # 'password': '123456',
+    'prefix': 'session',
+    'socket_timeout': 10
+}
+SESSION_COOKIE_NAME = const.SESSION_UID
+SESSION_COOKIE_PATH = "/"  # Session的cookie保存的路径
